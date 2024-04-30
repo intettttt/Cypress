@@ -31,8 +31,7 @@ describe('User Test Routes', () => {
 })
 
   describe('Add_User', () => {
-  it('Successfully add a new user account.', () => {
-
+    it('1. Successfully add a new user account.', () => {
     const string = `{
       "username": "Princess",
       "full_name": "Intet",
@@ -40,19 +39,34 @@ describe('User Test Routes', () => {
       "password": "Intet123"
     }`;
   
+        cy.visit('https://mariancure-backend.vercel.app/docs#/Users/add_user_api_add_user_post')
+        cy.get('.try-out > .btn').click();
+        cy.get('.body-param__text').each(($el) => {
+        cy.wrap($el).clear(); // Clear each text box
+        });
+        cy.get('.body-param__text').eq(0).type(string);
+        cy.get('.execute-wrapper > .btn').click();
+        cy.intercept('POST', '/add_user').as('apiRequest');
+        });;
+
+    it('2. Error handling for duplicate user details.', () => {
+    const string = `{
+      "username": "Princess",
+      "full_name": "Intet",
+      "role_name": "Patient",
+      "password": "Intet123"
+    }`;
+      
+        cy.visit('https://mariancure-backend.vercel.app/docs#/Users/add_user_api_add_user_post')
+        cy.get('.try-out > .btn').click();
+        cy.get('.body-param__text').each(($el) => {
+        cy.wrap($el).clear(); // Clear each text box
+        });
     
-    cy.visit('https://mariancure-backend.vercel.app/docs#/Users/add_user_api_add_user_post')
-    cy.get('.try-out > .btn').click();
-    cy.get('.body-param__text').each(($el) => {
-      cy.wrap($el).clear(); // Clear each text box
-    });
-
-    cy.get('.body-param__text').eq(0).type(string);
-   
-    cy.get('.execute-wrapper > .btn').click();
-    cy.intercept('POST', '/add_user').as('apiRequest');
-
-});
-  ;
+        cy.get('.body-param__text').eq(0).type(string);
+       
+        cy.get('.execute-wrapper > .btn').click();
+        cy.intercept('POST', '/add_user').as('apiRequest');
+        });
 });
 })
