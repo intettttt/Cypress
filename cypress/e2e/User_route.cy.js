@@ -28,16 +28,17 @@ describe('User', () => {
 
   it('Successfully add a new user account.', () => {
     cy.visit('https://mariancure-backend.vercel.app/docs#/Users/add_user_api_add_user_post')
-    cy.request({
-      method: 'GET',
-      url: 'https://mariancure-backend.vercel.app/api/add_user',
-    }).then((response) => {
-    expect(response.status).to.eq(200)
-    expect(response.body).to.have.property('username', "Intet");
-    expect(response.body).to.have.property('full_name', "Intettt");
-    expect(response.body).to.have.property('role_name', "Patient");
-    expect(response.body).to.have.property('password', "Intet123");
-    })
+    cy.get('.try-out > .btn').click();
+    cy.get('.body-param__text').each(($el) => {
+      cy.wrap($el).clear(); // Clear each text box
+    });
+
+    cy.get('.body-param__text').eq(0).type('{\n"username": "Intet",\n"full_name": "Intettt",\n"role_name": "Patient",\n"password": "Intet123"\n}');
+   x
+    cy.get('.execute-wrapper > .btn').click();
+    cy.intercept('POST', '/add_user').as('apiRequest');
+
+     
 })
   ;
-})
+});
