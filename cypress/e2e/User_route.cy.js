@@ -38,7 +38,6 @@ describe('User Test Routes', () => {
       cy.wait(5000);
     })
   })
-})
 
   describe('Add_User', () => {
     it('1. Successfully add a new user account.', () => {
@@ -80,6 +79,7 @@ describe('User Test Routes', () => {
       cy.intercept('POST', '/add_user').as('apiRequest');
 
       cy.wait(5000);
+    })
     });
 
 
@@ -103,5 +103,5 @@ describe('User Test Routes', () => {
         
       cy.wait(5000);
     })
-  })     
-});
+  });
+})
