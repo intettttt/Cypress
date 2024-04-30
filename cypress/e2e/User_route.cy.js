@@ -1,4 +1,5 @@
-describe('User', () => {
+describe('User Test Routes', () => {
+  describe('User', () => {
     it('Successfully retrieve user information', () => {
       cy.visit('https://mariancure-backend.vercel.app/docs#/Users/get_users_api_users__get')
       cy.request('https://mariancure-backend.vercel.app/api/users/').then((response)=>{
@@ -6,7 +7,9 @@ describe('User', () => {
       expect(response.body).to.have.length.above(0)
       })
   })
+})
 
+  describe('User_ID', () => {
   it('Successfully retrieve user information by ID', () => {
     cy.visit('https://mariancure-backend.vercel.app/docs#/Users/get_user_api_users__user_id__get')
 
@@ -25,7 +28,9 @@ describe('User', () => {
       expect(response.body).to.have.property('pharmacist_name', null);
     });
   })
+})
 
+  describe('Add_User', () => {
   it('Successfully add a new user account.', () => {
 
     const string = `{
@@ -50,3 +55,4 @@ describe('User', () => {
 });
   ;
 });
+})
