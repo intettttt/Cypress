@@ -18,12 +18,12 @@ describe('User Test Routes', () => {
     it('Successfully retrieve user information by ID', () => {
       cy.visit('https://mariancure-backend.vercel.app/docs#/Users/get_user_api_users__user_id__get')
       cy.get('.btn').click();
-      cy.get('input').eq(0).type("3");
+      cy.get('input').eq(0).type("1");
       cy.get('.execute-wrapper > .btn').click();
       
       cy.request({
         method: 'GET',
-        url: 'https://mariancure-backend.vercel.app/api/users/3',
+        url: 'https://mariancure-backend.vercel.app/api/users/1',
       }).then((response) => {
         // Assert that the request was successful
         expect(response.status).to.equal(200);
