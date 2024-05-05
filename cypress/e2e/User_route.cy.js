@@ -82,6 +82,34 @@ describe('User Test Routes', () => {
     })
     });
 
+  describe('Update Password', () => {
+    it('1. Succesfully retrieve user information', () => {
+      cy.visit('https://mariancure-backend.vercel.app/docs#/Users/update_user_password_api_update_password_put')
+      cy.get('.btn').click();
+      cy.get('[data-param-name="username"] > .parameters-col_description > input').type('VALvarez');
+      cy.get('[data-param-name="password"] > .parameters-col_description > input').type('Patient1234');
+      cy.get('.execute-wrapper > .btn').click();
+
+      cy.request('https://mariancure-backend.vercel.app/api/concerns/').then((response)=>{
+      expect(response.status).to.eq(200)
+      expect(response.body).to.have.length.above(0)
+      cy.wait(8000);
+    })
+  })
+    it('2. Failed due to incorrect credentials.', () => {
+      cy.visit('https://mariancure-backend.vercel.app/docs#/Users/update_user_password_api_update_password_put')
+      cy.get('.btn').click();
+      cy.get('[data-param-name="username"] > .parameters-col_description > input').type('tetetet');
+      cy.get('[data-param-name="password"] > .parameters-col_description > input').type('tetetet');
+      cy.get('.execute-wrapper > .btn').click();
+  
+      cy.request('https://mariancure-backend.vercel.app/api/concerns/').then((response)=>{
+      expect(response.status).to.eq(200)
+      expect(response.body).to.have.length.above(0)
+      cy.wait(8000);
+    })
+  }) 
+})
 
   describe('User_Login', () => {
     it('1. Successfully retrieve login information.', () => {
